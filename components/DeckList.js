@@ -2,30 +2,25 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { fetchResults } from '../utils/api'
 import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
+import { fetchDecks } from '../actions'
 
-export default class DeckList extends React.Component {
+class DeckList extends React.Component {
     state = {
         decks: [],
         ready: false,
     }
 
     componentDidMount () {
-      const { dispatch } = this.props
        fetchResults()
-        // .then((entries) => dispatch(receiveEntries(entries)))
-        // .then(({ entries }) => {
-        //   if (!entries[timeToString()]) {
-        //     dispatch(addEntry({
-        //       [timeToString()]: getDailyReminderValue()
-        //     }))
-        //   }
-        // })
+        .then((decks) => {return this.props.fetchDecks(decks)})
         .then((decks) => this.setState({decks, ready: true}))
     }
 
 
     render() {
-        const { ready, decks } = this.state
+        const { ready } = this.state
+        const { decks } = this.props
 
         const toDeck = (deck) => {
             return NavigationActions.navigate({
@@ -70,3 +65,9 @@ export default class DeckList extends React.Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+  return { decks: state.decks !== undefined ? state.decks : [], state };
+};
+
+export default connect(mapStateToProps, {fetchDecks})(DeckList);
