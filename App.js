@@ -1,10 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, Platform, StatusBar as ReactStatusBar } from 'react-native';
-import Decks from './components/Decks'
+import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
+import DeckDetail from './components/DeckDetail'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducer from './reducers'
+
 
 const tintColor = '#2f95dc'
 const white = '#fff'
@@ -17,21 +22,9 @@ function StatusBar ({backgroundColor, ...props}) {
   )
 }
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-      <Text>?</Text>
-        <StatusBar backgroundColor={tintColor} barStyle="light-content" />
-        <MainNavigator />
-      </View>
-    );
-  }
-}
-
 const Tabs = createBottomTabNavigator(
   {
-    Decks: Decks,
+    Decks: DeckList,
     AddDeck: AddDeck,
   },
   {
@@ -66,6 +59,33 @@ const Tabs = createBottomTabNavigator(
   }
 );
 
+const navigationOptions = {
+  headerTintColor: white,
+  headerStyle: {
+    backgroundColor: tintColor,
+  },
+};
+
+const DeckNavigator = createStackNavigator(
+  {
+    DeckDetail: {
+      screen: DeckDetail,
+      navigationOptions,
+    },
+    // TODO:
+    // NewQuestion: {
+    //   screen: NewQuestion,
+    //   navigationOptions,
+    // },
+    // Quiz: {
+    //   screen: Quiz,
+    //   navigationOptions,
+    // },
+  }, {
+    headerMode: 'none',
+  });
+
+
 const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
@@ -73,16 +93,28 @@ const MainNavigator = createStackNavigator({
       header: null,
     },
   },
-  // EntryDetail: {
-  //   screen: EntryDetail,
-  //   navigationOptions: ({ navigation }) => ({
-  //     headerTintColor: white,
-  //     headerStyle: {
-  //       backgroundColor: purple,
-  //     },
-  //   }),
-  // },
+  DeckNavigator: {
+    screen: DeckNavigator,
+    navigationOptions: ({ navigation }) => ({
+      navigationOptions
+    }),
+  },
 });
+
+
+export default class App extends React.Component {
+    render() {
+      return (
+        <Provider store={createStore(reducer)} >
+            <View style={{ flex: 1 }}>
+              <StatusBar backgroundColor={tintColor} barStyle="light-content" />
+              <MainNavigator />
+            </View>
+          </Provider>
+      );
+    }
+}
+
 
 const styles = StyleSheet.create({
   container: {
