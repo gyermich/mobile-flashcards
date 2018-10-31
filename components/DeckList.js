@@ -7,14 +7,13 @@ import { fetchDecks } from '../actions'
 
 class DeckList extends React.Component {
     state = {
-        decks: [],
         ready: false,
     }
 
     componentDidMount () {
        fetchResults()
         .then((decks) => {return this.props.fetchDecks(decks)})
-        .then((decks) => this.setState({decks, ready: true}))
+        .then((decks) => this.setState({ ready: true }))
     }
 
 
