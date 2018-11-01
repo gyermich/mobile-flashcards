@@ -14,12 +14,12 @@ class AddDeck extends Component {
 
   submit = () => {
     const { title } = this.state
-    this.setState(() => ({ title: '' }))
+    const deck = { title, questions:[] }
+    this.setState({ title: '' })
 
-    this.props.addDeck({ title })
-    this.props.navigation.dispatch(toDeck(title))
-
-    saveDeckTitle(title)
+    this.props.addDeck(deck)
+    // saveDeckTitle(title).then() <= AsyncStorage currently doesn't work for some reason
+    this.props.navigation.dispatch(toDeck(deck))
   }
 
   render() {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return state
+   return state
 }
 
 export default connect(mapStateToProps, { addDeck })(AddDeck)

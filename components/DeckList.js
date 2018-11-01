@@ -32,11 +32,11 @@ class DeckList extends React.Component {
                           <TouchableOpacity
                             style={styles.button}
                             key={deck.title}
-                            onPress={() => this.props.navigation.dispatch(toDeck(deck.title))}
+                            onPress={() => this.props.navigation.dispatch(toDeck(deck))}
                           >
                             <View>
                               <Text style={styles.deckTitle}>{deck.title}</Text>
-                              {deck.questions.length
+                              {deck.questions && deck.questions.length
                                   ? (
                                     <Text style={styles.deckCards}>{deck.questions.length} Cards</Text>
                                   )

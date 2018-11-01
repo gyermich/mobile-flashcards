@@ -1,11 +1,12 @@
 import { AsyncStorage } from 'react-native'
-import { STORAGE_KEY, formatResults } from './_dummy_data'
+import { STORAGE_KEY, formatResults, setDummyData } from './_dummy_data'
 
 
 export function fetchResults() {
   return AsyncStorage.getItem(STORAGE_KEY)
     .then(formatResults)
 }
+
 
 export function saveDeckTitle(title) {
   return AsyncStorage.mergeItem(STORAGE_KEY,
@@ -14,7 +15,8 @@ export function saveDeckTitle(title) {
         title,
         questions: [],
       }
-    }))
+    })
+  )
 }
 
 export function getDeck(deckTitle) {

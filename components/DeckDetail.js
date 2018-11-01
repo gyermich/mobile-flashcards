@@ -11,14 +11,11 @@ class DeckDetail extends React.Component {
     }
 
     componentDidMount() {
-        const { dispatch, deckTitle } = this.props;
-        getDeck(deckTitle)
-          .then((deck) => {
-            this.props.fetchDeck(deckTitle, deck)
-            this.setState({
-                deck: deck,
-                ready: true,
-            })
+    const { dispatch, deck } = this.props;
+        this.props.fetchDeck(deck.title, deck)
+        this.setState({
+            deck: deck,
+            ready: true,
         })
       }
 
@@ -46,7 +43,7 @@ class DeckDetail extends React.Component {
                     <View>
                       <Text style={styles.header}>{deck.title}</Text>
                       <Text style={styles.deckTitle}>
-                        {deck.questions.length} cards
+                        {deck.questions ? deck.questions.length : 0} cards
                       </Text>
 
                       <TouchableOpacity style={styles.button} onPress={() => this.addCard()}>
@@ -84,9 +81,9 @@ const styles = StyleSheet.create ({
 })
 
 function mapStateToProps (state, { navigation }) {
-    const { deckTitle } = navigation.state.params
+    const { deck } = navigation.state.params
     return {
-        deckTitle,
+        deck,
         state
     }
 }

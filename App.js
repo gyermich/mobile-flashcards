@@ -86,10 +86,10 @@ const DeckNavigator = createStackNavigator(
 const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
-    navigationOptions: {
-      title: 'Back to deck list',
+    navigationOptions: ({ navigation }) => ({
+      title: 'Go back',
       header: null,
-    },
+    }),
   },
   DeckNavigator: {
     screen: DeckNavigator,

@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 
-const STORAGE_KEY = 'DUMMYKEY'
+const STORAGE_KEY = 'MobileFlashcards:decks'
 
 export function formatResults (results) {
   return results === null
@@ -8,7 +8,7 @@ export function formatResults (results) {
     : JSON.parse(results)
 }
 
-function setDummyData () {
+export function setDummyData () {
   const dummyData = {
   React: {
       title: 'React',
@@ -22,16 +22,16 @@ function setDummyData () {
           answer: 'The componentDidMount lifecycle event'
         }
       ]
+    },
+  JavaScript: {
+      title: 'JavaScript',
+      questions: [
+        {
+          question: 'What is a closure?',
+          answer: 'The combination of a function and the lexical environment within which that function was declared.'
+        }
+      ]
     }
-  // JavaScript: {
-  //     title: 'JavaScript',
-  //     questions: [
-  //       {
-  //         question: 'What is a closure?',
-  //         answer: 'The combination of a function and the lexical environment within which that function was declared.'
-  //       }
-  //     ]
-  //   }
   }
 
   AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(dummyData))
