@@ -106,7 +106,7 @@ export default class App extends React.Component {
     render() {
       return (
         <Provider store={createStore(reducer)} >
-            <View style={{ flex: 1 }}>
+            <View style={styles.container}>
               <StatusBar backgroundColor={tintColor} barStyle="light-content" />
               <MainNavigator />
             </View>
@@ -116,11 +116,12 @@ export default class App extends React.Component {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
+const styles = StyleSheet.create ({
+   container: {
     flex: 1,
-    backgroundColor: tintColor,
-    alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'center',
-  },
+    alignItems: 'stretch',
+   }
 });
+

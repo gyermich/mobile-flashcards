@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { fetchResults } from '../utils/api'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -15,7 +15,6 @@ class DeckList extends React.Component {
         .then((decks) => {return this.props.fetchDecks(decks)})
         .then((decks) => this.setState({ ready: true }))
     }
-
 
     render() {
         const { ready } = this.state
@@ -33,28 +32,29 @@ class DeckList extends React.Component {
 
         return (
             <View>
-            <Text>List of Decks</Text>
+            <Text style={styles.header}>Available Decks:</Text>
                 {
                     ready && decks.length !== 0
                     ?
-                    <View>
+                    <View >
                         {decks.map((deck) => (
-                          <TouchableHighlight
+                          <TouchableOpacity
+                            style={styles.button}
                             key={deck.title}
                             onPress={() => this.props.navigation.dispatch(toDeck(deck))}
                           >
                             <View>
-                              <Text>{deck.title}</Text>
+                              <Text style={styles.deckTitle}>{deck.title}</Text>
                               {deck.questions.length
                                   ? (
-                                    <Text>{deck.questions.length} Cards</Text>
+                                    <Text style={styles.deckCards}>{deck.questions.length} Cards</Text>
                                   )
                                   : (
-                                    <Text>No Cards</Text>
+                                    <Text style={styles.deckCards}>No Cards</Text>
                                   )
                               }
                             </View>
-                          </TouchableHighlight>
+                          </TouchableOpacity>
                         ))}
                     </View>
                     : <Text>Loading...</Text>
@@ -64,6 +64,29 @@ class DeckList extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create ({
+   header: {
+        padding: 10,
+        fontSize: 42,
+        textAlign: 'center',
+    },
+    button: {
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10,
+        marginTop:16,
+    },
+    deckTitle: {
+        fontSize: 20,
+        textAlign: 'center',
+    },
+    deckCards: {
+        fontSize: 10,
+        textAlign: 'center',
+    }
+
+});
 
 function mapStateToProps(state) {
   return { decks: state.decks !== undefined ? state.decks : [], state };

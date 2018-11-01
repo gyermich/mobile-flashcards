@@ -11,18 +11,40 @@ export function fetchResults () {
     .then(formatResults)
 }
 
-export function createDeck ({ entry, key }) {
+export function createDeck (title) {
     return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify({
-        [key]: entry
+        [title]: {
+          title,
+          questions: [],
+        }
     }))
 }
 
-export function removeDeck (key) {
-    return AsyncStorage.getItem(STORAGE_KEY)
-    .then((results) => {
-      const data = JSON.parse(results)
-      data[key] = undefined
-      delete data[key]
-      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+export function addCardToDeck(data) {
+  const { question, answer, deck } = data;
+
+  return getDeck(deck).then((data) => {
+    data.questions.push({
+      question,
+      answer,
+    })
+    saveDeck(deck, data);
   })
 }
+
+export function saveDeck(deck, data) {
+  return AsyncStorage.mergeItem(STORAGE_KEY,
+    JSON.stringify({
+      [deck]: data,
+    }))
+};
+
+// export function removeDeck (key) {
+//     return AsyncStorage.getItem(STORAGE_KEY)
+//     .then((results) => {
+//       const data = JSON.parse(results)
+//       data[key] = undefined
+//       delete data[key]
+//       AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+//   })
+// }
