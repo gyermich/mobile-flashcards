@@ -1,19 +1,34 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'
+import { getDeck } from '../utils/api'
+import { fetchDeck } from '../actions'
 
 class DeckDetail extends React.Component {
     state = {
-        ready: true,
+        ready: false,
+        deck: null,
     }
 
+    componentDidMount() {
+        const { dispatch, deckTitle } = this.props;
+        getDeck(deckTitle)
+          .then((deck) => {
+            this.props.fetchDeck(deckTitle, deck)
+            this.setState({
+                deck: deck,
+                ready: true,
+            })
+        })
+      }
+
     addCard = () => {
-        const { deck } = this.props
+        const { deck } = this.state
         // this.props.navigation.dispatch(toAddQuiz(deck))
     }
 
     startQuiz = () => {
-        const { deck } = this.props
+        const { deck } = this.state
         // this.props.navigation.dispatch(toQuiz(deck.questions))
 
         // clearNotification()
@@ -21,8 +36,7 @@ class DeckDetail extends React.Component {
     }
 
     render() {
-        const { ready } = this.state
-        const { deck } = this.props
+        const { ready, deck } = this.state
         return (
             <View>
             {
@@ -70,17 +84,11 @@ const styles = StyleSheet.create ({
 })
 
 function mapStateToProps (state, { navigation }) {
-    const { deck } = navigation.state.params
+    const { deckTitle } = navigation.state.params
     return {
-        deck,
+        deckTitle,
         state
     }
 }
 
-function mapDispatchToProps (dispatch, { navigation }) {
-    // TODO: mapDispatchToProps
-}
-
-export default connect(
-  mapStateToProps,
-)(DeckDetail)
+export default connect(mapStateToProps, { fetchDeck })(DeckDetail)

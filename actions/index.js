@@ -2,24 +2,24 @@ export const FETCH_ALL_DECKS = 'FETCH_ALL_DECKS'
 export const ADD_DECK = 'ADD_DECK'
 export const GET_DECK = 'GET_DECK'
 
-export function addDeck (deck) {
+export function addDeck(data) {
     return {
         type: ADD_DECK,
-        deck,
+        data,
     }
 }
 
-export function fetchDecks (decks) {
+export function fetchDecks(data) {
     return {
         type: FETCH_ALL_DECKS,
-        decks,
+        data,
     }
 }
 
-export function getDeck (deck) {
+export function fetchDeck(key, data) {
     return {
         type: GET_DECK,
         key,
-        deck,
+        data,
     }
 }

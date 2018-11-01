@@ -9,10 +9,7 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
-
-
-const tintColor = '#2f95dc'
-const white = '#fff'
+import { tintColor, white } from './utils/helpers'
 
 function StatusBar ({backgroundColor, ...props}) {
   return (

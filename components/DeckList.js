@@ -4,6 +4,7 @@ import { fetchResults } from '../utils/api'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../actions'
+import { toDeck } from '../utils/helpers'
 
 class DeckList extends React.Component {
     state = {
@@ -20,16 +21,6 @@ class DeckList extends React.Component {
         const { ready } = this.state
         const { decks } = this.props
 
-        const toDeck = (deck) => {
-            return NavigationActions.navigate({
-                routeName: 'DeckNavigator',
-                action: NavigationActions.navigate({
-                    routeName: 'DeckDetail',
-                    params: { deck: deck },
-                }),
-            })
-        }
-
         return (
             <View>
             <Text style={styles.header}>Available Decks:</Text>
@@ -41,7 +32,7 @@ class DeckList extends React.Component {
                           <TouchableOpacity
                             style={styles.button}
                             key={deck.title}
-                            onPress={() => this.props.navigation.dispatch(toDeck(deck))}
+                            onPress={() => this.props.navigation.dispatch(toDeck(deck.title))}
                           >
                             <View>
                               <Text style={styles.deckTitle}>{deck.title}</Text>
@@ -88,7 +79,10 @@ const styles = StyleSheet.create ({
 })
 
 function mapStateToProps(state) {
-  return { decks: state.decks !== undefined ? state.decks : [], state }
+    return {
+        decks: Object.values(state) || [],
+        state
+    }
 }
 
 export default connect(mapStateToProps, {fetchDecks})(DeckList)

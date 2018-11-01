@@ -6,20 +6,17 @@ function decks (state = {}, action) {
     case FETCH_ALL_DECKS :
       return {
         ...state,
-        decks: action.decks,
+        ...action.data
       }
     case GET_DECK :
       return {
         ...state,
-        [action.key]: action.deck
+        [action.key]: action.data
     }
     case ADD_DECK :
       return {
         ...state,
-        [action.deck.title]: {
-            title: action.deck.title,
-            questions: [],
-        },
+        [action.data.title]: action.data
     }
     default :
       return state
