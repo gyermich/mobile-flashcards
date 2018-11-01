@@ -43,10 +43,10 @@ const Tabs = createBottomTabNavigator(
     }),
     tabBarOptions: {
       showIcon: true,
-      activeTintColor: Platform.OS === 'ios' ? tintColor : white,
+      activeTintColor: tintColor,
       style: {
         height: 56,
-        backgroundColor: Platform.OS === 'ios' ? white : tintColor,
+        backgroundColor: white,
         shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
           width: 0,
@@ -60,9 +60,9 @@ const Tabs = createBottomTabNavigator(
 );
 
 const navigationOptions = {
-  headerTintColor: white,
+  headerTintColor: tintColor,
   headerStyle: {
-    backgroundColor: tintColor,
+    backgroundColor: white,
   },
 };
 
@@ -83,13 +83,14 @@ const DeckNavigator = createStackNavigator(
     // },
   }, {
     headerMode: 'none',
-  });
+  })
 
 
 const MainNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
     navigationOptions: {
+      title: 'Back to deck list',
       header: null,
     },
   },
