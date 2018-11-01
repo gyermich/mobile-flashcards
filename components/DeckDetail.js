@@ -30,16 +30,16 @@ class DeckDetail extends React.Component {
                 ?
                 <View>
                     <View>
-                      <Text>{deck.title}</Text>
-                      <Text>
+                      <Text style={styles.header}>{deck.title}</Text>
+                      <Text style={styles.deckTitle}>
                         {deck.questions.length} cards
                       </Text>
 
-                      <TouchableOpacity onPress={() => this.addCard()}>
+                      <TouchableOpacity style={styles.button} onPress={() => this.addCard()}>
                         <Text>Add Card</Text>
                       </TouchableOpacity>
 
-                      <TouchableOpacity onPress={() => this.start()}>
+                      <TouchableOpacity  style={styles.button} onPress={() => this.startQuiz()}>
                         <Text>Start Quiz</Text>
                       </TouchableOpacity>
                     </View>
@@ -50,6 +50,24 @@ class DeckDetail extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create ({
+   header: {
+        padding: 10,
+        fontSize: 42,
+        textAlign: 'center',
+    },
+    button: {
+        alignItems: 'center',
+        backgroundColor: '#DDDDDD',
+        padding: 10,
+        marginTop:16,
+    },
+    deckTitle: {
+        fontSize: 20,
+        textAlign: 'center',
+    },
+})
 
 function mapStateToProps (state, { navigation }) {
     const { deck } = navigation.state.params

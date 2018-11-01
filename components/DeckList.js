@@ -61,7 +61,7 @@ class DeckList extends React.Component {
                 }
             </View>
 
-        );
+        )
     }
 }
 
@@ -85,11 +85,10 @@ const styles = StyleSheet.create ({
         fontSize: 10,
         textAlign: 'center',
     }
-
-});
+})
 
 function mapStateToProps(state) {
-  return { decks: state.decks !== undefined ? state.decks : [], state };
-};
+  return { decks: state.decks !== undefined ? state.decks : [], state }
+}
 
-export default connect(mapStateToProps, {fetchDecks})(DeckList);
+export default connect(mapStateToProps, {fetchDecks})(DeckList)
