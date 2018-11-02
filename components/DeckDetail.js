@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux'
 import { getDeck } from '../utils/api'
 import { fetchDeck } from '../actions'
+import { toAddCard } from '../utils/helpers'
 
 class DeckDetail extends React.Component {
     state = {
@@ -21,7 +22,7 @@ class DeckDetail extends React.Component {
 
     addCard = () => {
         const { deck } = this.state
-        // this.props.navigation.dispatch(toAddQuiz(deck))
+        this.props.navigation.dispatch(toAddCard(deck))
     }
 
     startQuiz = () => {

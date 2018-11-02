@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Platform, StatusBar as ReactStatusBar } from 'r
 import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import DeckDetail from './components/DeckDetail'
+import NewQuestion from './components/NewQuestion'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
@@ -69,11 +70,10 @@ const DeckNavigator = createStackNavigator(
       screen: DeckDetail,
       navigationOptions,
     },
-    // TODO:
-    // NewQuestion: {
-    //   screen: NewQuestion,
-    //   navigationOptions,
-    // },
+    NewQuestion: {
+      screen: NewQuestion,
+      navigationOptions,
+    },
     // Quiz: {
     //   screen: Quiz,
     //   navigationOptions,

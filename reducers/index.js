@@ -1,4 +1,4 @@
-import { FETCH_ALL_DECKS, ADD_DECK, GET_DECK } from '../actions'
+import { FETCH_ALL_DECKS, ADD_DECK, GET_DECK, ADD_CARD } from '../actions'
 
 
 function decks (state = {}, action) {
@@ -18,6 +18,18 @@ function decks (state = {}, action) {
         ...state,
         [action.data.title]: action.data
     }
+    case ADD_CARD :
+      const { question, answer, deck } = action.data
+      let questions = { ...state }[deck.title].questions
+      questions.push({ question, answer })
+
+      return {
+        ...state,
+        [deck.title]: {
+          title: deck.title,
+          questions
+        }
+      }
     default :
       return state
   }

@@ -12,3 +12,10 @@ export const toDeck = (deck) => {
         }),
     })
 }
+
+export const goBack = () => NavigationActions.back({ key: null })
+
+export const toAddCard = (deck) => NavigationActions.navigate({
+    routeName: 'NewQuestion',
+    params: { deck },
+})

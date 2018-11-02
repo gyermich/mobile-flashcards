@@ -34,7 +34,7 @@ export function saveDeck(deck, data) {
 }
 
 export function addCardToDeck(data) {
-  const { question, answer, title } = data;
+  const { question, answer, title } = data
 
   return getDeck(title).then((deck) => {
     deck.questions.push({
