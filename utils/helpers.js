@@ -19,3 +19,8 @@ export const toAddCard = (deck) => NavigationActions.navigate({
     routeName: 'NewQuestion',
     params: { deck },
 })
+
+export const toQuiz = (questions) => NavigationActions.navigate({
+    routeName: 'Quiz',
+    params: { questions },
+})

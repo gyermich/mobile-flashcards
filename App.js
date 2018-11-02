@@ -4,6 +4,7 @@ import DeckList from './components/DeckList'
 import AddDeck from './components/AddDeck'
 import DeckDetail from './components/DeckDetail'
 import NewQuestion from './components/NewQuestion'
+import Quiz from './components/Quiz'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
@@ -74,10 +75,10 @@ const DeckNavigator = createStackNavigator(
       screen: NewQuestion,
       navigationOptions,
     },
-    // Quiz: {
-    //   screen: Quiz,
-    //   navigationOptions,
-    // },
+    Quiz: {
+      screen: Quiz,
+      navigationOptions,
+    },
   }, {
     headerMode: 'none',
   })
