@@ -3,6 +3,7 @@ import { STORAGE_KEY, formatResults, setDummyData } from './_dummy_data'
 
 
 export function fetchResults() {
+  // AsyncStorage.clear()
   return AsyncStorage.getItem(STORAGE_KEY)
     .then(formatResults)
 }
@@ -34,9 +35,9 @@ export function saveDeck(deck, data) {
 }
 
 export function addCardToDeck(data) {
-  const { question, answer, title } = data
+  const { question, answer, deck } = data
 
-  return getDeck(title).then((deck) => {
+  return getDeck(deck.title).then((deck) => {
     deck.questions.push({
       question,
       answer,

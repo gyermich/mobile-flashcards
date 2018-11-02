@@ -17,9 +17,15 @@ class AddDeck extends Component {
     const deck = { title, questions:[] }
     this.setState({ title: '' })
 
-    this.props.addDeck(deck)
-    // saveDeckTitle(title).then() <= AsyncStorage currently doesn't work for some reason
-    this.props.navigation.dispatch(toDeck(deck))
+    saveDeckTitle(title)
+    .then(() => {
+        this.props.addDeck(deck)
+        this.props.navigation.dispatch(toDeck(deck))
+    })
+    .catch((error) => {
+      alert('Something went wrong. Please try again.')
+      console.log('Error while trying to add a deck: ', error)
+    })
   }
 
   render() {

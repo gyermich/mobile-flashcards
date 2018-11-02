@@ -19,11 +19,16 @@ class NewQuestion extends Component {
     const { deck, addCard } = this.props
 
     addCard({ question, answer, deck })
-    // addCardToDeck({ question, answer, deck }) # AsyncStorage not working for me :(
+    addCardToDeck({ question, answer, deck })
+    .then(() => {
+      this.setState(() => ({ question: '', answer: '' }))
+      this.props.navigation.dispatch(goBack())
+    })
+    .catch((error) => {
+      alert('Something went wrong. Please try again.')
+      console.log('Error while trying to add a card: ', error)
+    })
 
-    this.setState(() => ({ question: '', answer: '' }))
-
-    this.props.navigation.dispatch(goBack())
   }
 
   render() {
