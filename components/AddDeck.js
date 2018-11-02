@@ -31,10 +31,18 @@ class AddDeck extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.header}>What is the title of your new deck?</Text>
-        <TextInput style={styles.inputText} onChangeText={(title) => this.setState({ title })} value={this.state.title} />
+        <Text style={styles.header}>
+            What is the title of your new deck?
+        </Text>
+        <TextInput
+            style={styles.inputText}
+            onChangeText={(title) => this.setState({ title })}
+            value={this.state.title}
+        />
         <TouchableOpacity style={styles.button} onPress={this.submit}>
-          <Text style={styles.buttonText}>Submit</Text>
+          <Text style={styles.buttonText}>
+            Create Deck
+          </Text>
         </TouchableOpacity>
       </View>
     )
