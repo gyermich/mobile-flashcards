@@ -1,9 +1,10 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { getDeck } from '../utils/api'
 import { fetchDeck } from '../actions'
 import { toAddCard, toQuiz } from '../utils/helpers'
+import { clearLocalNotification, setLocalNotification } from '../utils/notifications'
 
 class DeckDetail extends React.Component {
     state = {
@@ -29,8 +30,7 @@ class DeckDetail extends React.Component {
         const { deck } = this.state
         this.props.navigation.dispatch(toQuiz(deck.questions))
 
-        // clearNotification()
-        //   .then(setNotification)
+        clearLocalNotification().then(setLocalNotification)
     }
 
     render() {
